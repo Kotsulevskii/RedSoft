@@ -1,6 +1,3 @@
-body {
-  margin: 0;
-}
 /* Переменные */
 :root {
   --font-main: 21px;
@@ -23,7 +20,9 @@ body {
 
   --border-main: 1px solid #E1E1E1;
 }
-
+body {
+  margin: 0;
+}
 /* Глобальный контейнер */
 .container {
   max-width: 1200px;

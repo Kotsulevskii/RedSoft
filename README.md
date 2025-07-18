@@ -1,5 +1,62 @@
-# Vue 3 + TypeScript + Vite
+# RedSoft
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Веб-приложение на Vue 3 + TypeScript для тествого задания фирмы RedSoft.
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+## Стек технологий
+- [Vue 3](https://vuejs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/) — быстрый сборщик
+- [vue-router](https://router.vuejs.org/) — маршрутизация
+
+## Быстрый старт
+
+### 1. Клонирование репозитория
+```bash
+# Клонируйте репозиторий и перейдите в папку проекта
+ git clone <repo-url>
+ cd RedSoft
+```
+
+### 2. Установка зависимостей
+```bash
+npm install
+```
+
+### 3. Запуск в режиме разработки
+```bash
+npm run dev
+```
+
+Приложение будет доступно по адресу, который выведет Vite (обычно http://localhost:5173).
+
+### 4. Сборка для продакшена
+```bash
+npm run build
+```
+
+### 5. Предпросмотр production-сборки
+```bash
+npm run preview
+```
+
+## Структура проекта
+```
+RedSoft/
+  src/
+    components/   # Vue-компоненты (Header, Footer, Card и др.)
+    views/        # Страницы (Home.vue)
+    assets/       # Локальные изображения и иконки
+    router/       # Маршрутизация
+    types/        # Типы TypeScript
+    style.css     # Глобальные стили и переменные
+  public/         # Публичные изображения
+  index.html      # Точка входа
+  package.json    # Скрипты и зависимости
+```
+
+## Особенности
+- Используются CSS-переменные для цветов, размеров шрифтов и других повторяющихся свойств.
+- Глобальные утилитарные классы для контейнеров и кнопок.
+- Мобильная адаптация для Header и Footer.
+- Корзина реализована через localStorage (демо-режим).
+
