@@ -15,10 +15,10 @@
       </nav>
       <div class="footer__contact">
         <div class="footer__contact-block">
-          <div class="phone-icon"></div><div>+7 (495) 555-55-55</div> 
+          <div class="phone-icon"></div><div><a href="tel:+74955555555">+7 (495) 555-55-55</a></div>
         </div>
         <div class="footer__contact-block">
-          <div class="location-icon"></div><div>г. Москва, ул. Расплетина, 24</div>
+          <div class="location-icon"></div><div><a href="https://yandex.ru/maps/-/CHTmvFk6" target="_blank">г. Москва, ул. Расплетина, 24</a></div>
         </div>
       </div>
     </div>
@@ -76,8 +76,10 @@
   background-image: url('../assets/location.png');
   width: 15px;
 }
-.footer__contact  div {
+.footer__contact  div > a {
   font-size: var(--font-small);
+  text-decoration: none;
+  color: var(--color-main)
 }
 
 @media (max-width: 1024px) {

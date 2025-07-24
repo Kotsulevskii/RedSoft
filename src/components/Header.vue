@@ -1,9 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-const menuOpen = ref(false)
-function toggleMenu() {
-  menuOpen.value = !menuOpen.value
-}
+  import { ref } from 'vue'
+
+  const menuOpen = ref(false)
+
+  function toggleMenu() {
+    menuOpen.value = !menuOpen.value
+  }
+
+  const searchQuery = ref('')
+
+  const clearSearch = () => {
+    searchQuery.value = ''
+  }
 </script>
 
 <template>
@@ -11,11 +19,6 @@ function toggleMenu() {
     <div class="container">
       <div class="header__logo">
         <img src="../assets/logo.png" alt="Logo" />
-      </div>
-      <div class="header__burger" @click="toggleMenu" :class="{ open: menuOpen }">
-        <span></span>
-        <span></span>
-        <span></span>
       </div>
       <nav class="header__menu" :class="{ open: menuOpen }">
         <ul>
@@ -26,8 +29,27 @@ function toggleMenu() {
           <li><a href="#">О галерее</a></li>
         </ul>
       </nav>
+       <div class="header__burger" @click="toggleMenu" :class="{ open: menuOpen }">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
       <form class="header__search">
-        <input type="text" placeholder="Поиск по названию картины" />
+        <div class="search-input-wrapper">
+          <input
+            type="text"
+            v-model="searchQuery"
+            placeholder="Поиск по названию картины"
+          />
+          <button
+            v-if="searchQuery"
+            type="button"
+            class="clear-button"
+            @click="clearSearch"
+          >
+            ✕
+          </button>
+        </div>
         <button type="submit" class="button button--header">Найти</button>
       </form>
     </div>
@@ -74,6 +96,23 @@ function toggleMenu() {
   font-size: var(--font-main);
 }
 
+.search-input-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.clear-button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #999;
+}
+
 .header__burger {
   display: none;
   width: 36px;
@@ -102,6 +141,7 @@ function toggleMenu() {
 .header__burger.open span:nth-child(3) {
   transform: translateY(-12px) rotate(-45deg);
 }
+
 
 @media (max-width: 1024px) {
   .header__menu ul {
@@ -158,9 +198,6 @@ function toggleMenu() {
     margin-top: 12px;
     text-align: center;
     order: 3;
-  }
-  .header__search input{
-    width: 80%;
   }
   .header__logo {
     order: 1;

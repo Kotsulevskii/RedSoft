@@ -6,10 +6,6 @@ const props = defineProps<{
   product: Product
 }>()
 
-const emit = defineEmits<{
-  (e: 'update-cart', productId: number): void
-}>()
-
 const loading = ref(false)
 const inCart = ref(checkInCart())
 const imageLoaded = ref(false)
@@ -28,7 +24,23 @@ async function addToCart() {
     if (res.ok) {
       inCart.value = true
       saveToLocalStorage()
-      emit('update-cart', props.product.id)
+     
+    }
+  } catch (err) {
+    console.error(err)
+  } finally {
+    loading.value = false
+  }
+}
+
+async function removeFromCart() {
+  loading.value = true
+  try {
+    const res = await fetch('https://jsonplaceholder.typicode.com/posts/1 ')
+    if (res.ok) {
+      inCart.value = false
+      removeFromLocalStorage()
+     
     }
   } catch (err) {
     console.error(err)
@@ -43,6 +55,12 @@ function saveToLocalStorage() {
     cartItems.push(props.product.id)
     localStorage.setItem('cart', JSON.stringify(cartItems))
   }
+}
+
+function removeFromLocalStorage() {
+  const cartItems = JSON.parse(localStorage.getItem('cart') || '[]') as number[]
+  const updatedItems = cartItems.filter(id => id !== props.product.id)
+  localStorage.setItem('cart', JSON.stringify(updatedItems))
 }
 </script>
 
@@ -60,8 +78,8 @@ function saveToLocalStorage() {
       @load="imageLoaded = true"
     />
     <div class="card__content">
-      <h2 class="card__title">{{ product.title }} 
-        <p class="card__author">{{ product.author }}</p>
+      <h2 class="card__content--text">{{ product.title }} 
+        <p class="card__content--text">{{ product.author }}</p>
       </h2>
       <div class="card__active">
         <div class="card__price">
@@ -76,8 +94,11 @@ function saveToLocalStorage() {
         >
           {{ loading ? 'Загрузка...' : 'Купить' }}
         </button>
-        <button v-else-if="inCart && product.price !== 'Продана на аукционе'" 
-        class="button button--alt card__button card__button--in-cart">
+        <button 
+          v-else-if="inCart && product.price !== 'Продана на аукционе'" 
+          class="button button--alt card__button card__button--in-cart"
+           @click="removeFromCart"
+        >
           <div class="card__button--check">
             <div class="check-icon"></div><div>В корзине</div>
           </div>
@@ -114,7 +135,7 @@ function saveToLocalStorage() {
   height: 200px;
   text-align: left;
 }
-.card__title, .card__author {
+.card__content--text {
   font-size: var(--font-card-title);
   font-weight: 400;
   line-height: 150%;
@@ -145,7 +166,7 @@ function saveToLocalStorage() {
   margin: 0;
 }
 .card__button {
-  /* только специфичные стили, базовые в .button */
+  width: 135px;
 }
 .card__button--in-cart {
   padding: 14px 8px;
